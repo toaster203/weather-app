@@ -12,7 +12,7 @@ export default function App() {
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
     });
-  }, [lat, long]);
+  }, [latitude, longitude]);
 
   return (
     <div className="App">

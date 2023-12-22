@@ -16,7 +16,12 @@ export default function App() {
 
   return (
     <div className="App">
-      <Weather long={longitude} lat={latitude}/>
+      {(typeof DataTransfer.main != 'undefined') ? (
+        <Weather long={longitude} lat={latitude}/>
+      ) : (
+        <div> </div>
+      )}
+      
     </div>
   );
 }

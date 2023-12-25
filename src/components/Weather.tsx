@@ -20,17 +20,21 @@ export default function WeatherBox({ long, lat }) {
     }, [long, lat]);
 
     if (loaded) {
-        return (<div className="weather-box">
-            {weatherData.main.temp}°C
-            <div className="weather">
-                {weatherData.weather[0].main}
-            </div>
-        </div>)
+        return (
+            <div className="weather-box">
+                {weatherData.main.temp}°C
+
+                <div className="weather">
+                    {weatherData.weather[0].main}
+                    <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt="icon"></img>
+                </div>
+
+            </div>)
     }
-    else{
+    else {
         return (<div className="loading-message">
             Loading...
         </div>)
-    
+
     }
 }

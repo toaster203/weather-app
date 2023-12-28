@@ -4,8 +4,8 @@ import Weather from  './components/Weather.tsx';
 
 export default function App() {
   
-  const [latitude, setLatitude] = React.useState(0);
-  const [longitude, setLongitude] = React.useState(0);
+  const [latitude, setLatitude] = React.useState(null);
+  const [longitude, setLongitude] = React.useState(null);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(function(position) {

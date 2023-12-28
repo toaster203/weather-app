@@ -1,0 +1,32 @@
+.weather{
+    height:100%;
+    display:flex;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.weather-box{
+    width:30%;
+    display:flex;
+    justify-content: center;
+    flex-direction: column;
+    vertical-align: middle;
+}
+
+.weather-heading{
+    display:flex;
+    background-color: lightblue;
+    border: 1px solid black;
+}
+
+.weather-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.temp{
+    font-size: 20px;
+}

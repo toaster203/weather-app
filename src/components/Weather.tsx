@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./weather.css";
 
 export default function WeatherBox({ long, lat }) {
     // change weather to forecast for the 5 days 3 hour forecast
@@ -21,14 +22,24 @@ export default function WeatherBox({ long, lat }) {
 
     if (loaded) {
         return (
-            <div className="weather-box">
-                {weatherData.main.temp}°C
+            <div className="weather">
+                <div className="weather-box">
+                    <div className="weather-heading">
+                        <div className="location">
+                            {weatherData.name}
+                        </div>
+                    </div>
+                    <div className="weather-body">
+                        <div className="temp">
+                            {weatherData.main.temp}°C
+                        </div>
 
-                <div className="weather">
-                    {weatherData.weather[0].main}
-                    <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt="icon"></img>
+                        {weatherData.weather[0].main}
+                        <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt="icon"></img>
+                    </div>
+
+
                 </div>
-
             </div>)
     }
     else {

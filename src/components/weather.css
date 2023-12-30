@@ -10,6 +10,8 @@
 
 .search-bar{
     display:flex;
+    position:absolute;
+    top:0;
     flex-direction: row;
     justify-content: center;
     gap: 14px;

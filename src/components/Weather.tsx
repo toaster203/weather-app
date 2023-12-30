@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./weather.css";
 
+import search_icon from './assets/search.png'
+
 export default function WeatherBox({ long, lat }) {
     // change weather to forecast for the 5 days 3 hour forecast
     const [weatherData, setWeatherData] = useState({});
@@ -23,6 +25,13 @@ export default function WeatherBox({ long, lat }) {
     if (loaded) {
         return (
             <div className="weather">
+                <div className="search-bar">
+                    <input type="text" className="cityInput" placeholder="Search"/>
+                    <div className="search-icon">
+                        <img src={search_icon} alt="" />
+                    </div>
+                </div>
+
                 <div className="weather-box">
                     <div className="weather-heading">
                         <div className="location">

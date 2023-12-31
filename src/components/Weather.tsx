@@ -28,6 +28,10 @@ export default function WeatherBox({ long, lat }) {
         getWeather();
     }, [long, lat]);
 
+    const search = async () => {
+        // idk if this is supposed to be here
+    }
+
     if (loaded) {
         return (
             <div className="weather">
@@ -42,23 +46,15 @@ export default function WeatherBox({ long, lat }) {
                         <button onClick={updateSearch} className="search"><img src={search_icon} alt=""/></button>
                     </div>
                 </div>
-
-                <div className="weather-box">
-                    <div className="weather-heading">
-                        <div className="location">
-                            {weatherData.name}
-                        </div>
-                    </div>
-                    <div className="weather-body">
-                        <div className="temp">
-                            {weatherData.main.temp}°C
-                        </div>
-
-                        {weatherData.weather[0].main}
+                <div className="location">
+                    {weatherData.name}
+                </div>
+                <div className="temp">
+                     {weatherData.main.temp}°C
+                </div>
+                <div className="weather-data">
+                {weatherData.weather[0].main}
                         <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt="icon"></img>
-                    </div>
-
-
                 </div>
             </div>)
     }

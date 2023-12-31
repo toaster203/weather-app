@@ -31,23 +31,15 @@ export default function WeatherBox({ long, lat }) {
                         <img src={search_icon} alt="" />
                     </div>
                 </div>
-
-                <div className="weather-box">
-                    <div className="weather-heading">
-                        <div className="location">
-                            {weatherData.name}
-                        </div>
-                    </div>
-                    <div className="weather-body">
-                        <div className="temp">
-                            {weatherData.main.temp}°C
-                        </div>
-
-                        {weatherData.weather[0].main}
+                <div className="location">
+                    {weatherData.name}
+                </div>
+                <div className="temp">
+                     {weatherData.main.temp}°C
+                </div>
+                <div className="weather-data">
+                {weatherData.weather[0].main}
                         <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt="icon"></img>
-                    </div>
-
-
                 </div>
             </div>)
     }

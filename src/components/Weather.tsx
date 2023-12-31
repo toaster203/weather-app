@@ -5,20 +5,26 @@ import "./weather.css";
 import search_icon from './assets/search.png'
 
 export default function WeatherBox({ long, lat }) {
-    // change weather to forecast for the 5 days 3 hour forecast
     const [weatherData, setWeatherData] = useState({});
     const [loaded, setLoaded] = useState(false);
+    const [val, setVal] = useState('');
+
+    function updateSearch(){
+        console.log(val);
+        //check if val is not empty, then api call
+    }
+    async function getWeather() {
+        // change weather to forecast for the 5 days 3 hour forecast
+        await axios.get(`${process.env.REACT_APP_API_URL}/weather?lat=${lat}&lon=${long}&appid=${process.env.REACT_APP_API_KEY}&units=metric`)
+            .then((response) => {
+                setWeatherData(response.data);
+                setLoaded(true);
+            }).catch(error => {
+                console.log(error);
+            });
+    }
 
     useEffect(() => {
-        async function getWeather() {
-            await axios.get(`${process.env.REACT_APP_API_URL}/weather?lat=${lat}&lon=${long}&appid=${process.env.REACT_APP_API_KEY}&units=metric`)
-                .then((response) => {
-                    setWeatherData(response.data);
-                    setLoaded(true);
-                }).catch(error => {
-                    console.log(error);
-                });
-        }
         getWeather();
     }, [long, lat]);
 
@@ -26,9 +32,14 @@ export default function WeatherBox({ long, lat }) {
         return (
             <div className="weather">
                 <div className="search-bar">
-                    <input type="text" className="cityInput" placeholder="Search"/>
+                    <input
+                        type="text"
+                        className="cityInput"
+                        placeholder="Search"
+                        value={val}
+                        onChange={(e)=> setVal(e.target.value)}/>
                     <div className="search-icon">
-                        <img src={search_icon} alt="" />
+                        <button onClick={updateSearch} className="search"><img src={search_icon} alt=""/></button>
                     </div>
                 </div>
 

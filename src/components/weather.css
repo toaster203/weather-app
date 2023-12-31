@@ -32,8 +32,9 @@
     font-weight: 400;
 }
 
-.search-icon{
+.search{
     display: flex;
+    border:none;
     justify-content: center;
     align-items: center;
     width: 60px;
@@ -41,7 +42,10 @@
     background: #f7f8ff;
     border-radius: 30px;
     cursor: pointer;
+}
 
+.search:hover{
+    background: #e4e6f0;
 }
 
 .weather-box{

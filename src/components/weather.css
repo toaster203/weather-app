@@ -41,31 +41,27 @@
     background: #f7f8ff;
     border-radius: 30px;
     cursor: pointer;
-
 }
 
-.weather-box{
-    width:30%;
+.location{
+    display: flex;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.temp{
+    padding-top: 30px;
     display:flex;
     justify-content: center;
-    flex-direction: column;
-    vertical-align: middle;
+    font-size: 60px;
+    font-weight: 400;
 }
 
-.weather-heading{
-    display:flex;
-    background-color: rgb(225, 234, 237);
-    border: 1px solid black;
-}
-
-.weather-body{
+.weather-data{
+    padding-top: 20px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    border: 1px solid black;
-}
-
-.temp{
-    font-size: 20px;
 }

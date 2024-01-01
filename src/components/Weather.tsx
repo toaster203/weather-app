@@ -1,19 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo} from "react";
 import axios from "axios";
 import "./weather.css";
 
-import search_icon from './assets/search.png'
+import search_icon from './assets/search.png';
+import { Search } from 'semantic-ui-react';
+import debounce from "debounce";
 
 export default function WeatherBox({ long, lat }) {
     const [weatherData, setWeatherData] = useState({});
     const [loaded, setLoaded] = useState(false);
     const [val, setVal] = useState('');
+    const [results, setResults] = useState([]);
+    const cities = require('../city.list.json');
 
-    async function updateSearch(){
-        console.log(val);
+    //need to add debounce so search isn't as slow
+    function updateSearch(event) {
+        setVal(event.target.value);
+        console.log(event.target.value);
+        setResults(cities.filter((city) => { return event.target.value && city.name.toLowerCase().startsWith(event.target.value.toLowerCase())}));
+    }
+
+    function selectVal(result){
+        setVal(result.name);
+        getCityWeather(result.id);
+    }
+
+    async function getCityWeather(id) {
+        console.log(id);
         //check if val is not empty, then api call
-        await axios.get(`${process.env.REACT_APP_API_URL}/weather?q=${val}&appid=${process.env.REACT_APP_API_KEY}&units=metric`)
-        // change from q= thing into calling api by city id (ambiguity?)
+        await axios.get(`${process.env.REACT_APP_API_URL}/weather?id=${id}&appid=${process.env.REACT_APP_API_KEY}&units=metric`)
             .then((response) => {
                 setWeatherData(response.data);
                 setLoaded(true);
@@ -21,6 +36,7 @@ export default function WeatherBox({ long, lat }) {
                 console.log(error);
             });
     }
+
     async function getWeather() {
         // change weather to forecast for the 5 days 3 hour forecast
         await axios.get(`${process.env.REACT_APP_API_URL}/weather?lat=${lat}&lon=${long}&appid=${process.env.REACT_APP_API_KEY}&units=metric`)
@@ -36,15 +52,11 @@ export default function WeatherBox({ long, lat }) {
         getWeather();
     }, [long, lat]);
 
-    const search = async () => {
-        // idk if this is supposed to be here
-    }
-
     if (loaded) {
         return (
             <div className="weather">
                 <div className="search-bar">
-                    <input
+                    {/*<input
                         type="text"
                         className="cityInput"
                         placeholder="Search"
@@ -52,17 +64,27 @@ export default function WeatherBox({ long, lat }) {
                         onChange={(e)=> setVal(e.target.value)}/>
                     <div className="search-icon">
                         <button onClick={updateSearch} className="search"><img src={search_icon} alt=""/></button>
-                    </div>
+                    </div>*/}
+
+                    <Search
+                        onSearchChange={updateSearch}
+                        onResultSelect={(e, data) =>
+                            selectVal(data.result)
+                        }
+                        resultRenderer={(result) => <div key={result.id}>{result.name}, {result.country}</div>}
+                        value={val}
+                        results={results}
+                        noResultsMessage='No cities match the search' />
                 </div>
                 <div className="location">
                     {weatherData.name}
                 </div>
                 <div className="temp">
-                     {weatherData.main.temp}°C
+                    {weatherData.main.temp}°C
                 </div>
                 <div className="weather-data">
-                {weatherData.weather[0].main}
-                        <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt="icon"></img>
+                    {weatherData.weather[0].main}
+                    <img src={`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`} alt="icon"></img>
                 </div>
             </div>)
     }

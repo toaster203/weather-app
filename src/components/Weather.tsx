@@ -9,9 +9,17 @@ export default function WeatherBox({ long, lat }) {
     const [loaded, setLoaded] = useState(false);
     const [val, setVal] = useState('');
 
-    function updateSearch(){
+    async function updateSearch(){
         console.log(val);
         //check if val is not empty, then api call
+        await axios.get(`${process.env.REACT_APP_API_URL}/weather?q=${val}&appid=${process.env.REACT_APP_API_KEY}&units=metric`)
+        // change from q= thing into calling api by city id (ambiguity?)
+            .then((response) => {
+                setWeatherData(response.data);
+                setLoaded(true);
+            }).catch(error => {
+                console.log(error);
+            });
     }
     async function getWeather() {
         // change weather to forecast for the 5 days 3 hour forecast

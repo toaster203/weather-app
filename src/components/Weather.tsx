@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo} from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "./weather.css";
 
@@ -17,10 +17,12 @@ export default function WeatherBox({ long, lat }) {
     function updateSearch(event) {
         setVal(event.target.value);
         console.log(event.target.value);
-        setResults(cities.filter((city) => { return event.target.value && city.name.toLowerCase().startsWith(event.target.value.toLowerCase())}));
+        if (event.target.value.length >= 2) {
+            setResults(cities.filter((city) => { return event.target.value && city.name.toLowerCase().startsWith(event.target.value.toLowerCase()) }));
+        }
     }
 
-    function selectVal(result){
+    function selectVal(result) {
         setVal(result.name);
         getCityWeather(result.id);
     }
@@ -69,6 +71,7 @@ export default function WeatherBox({ long, lat }) {
                     <Search
                         placeholder="Search for a city..."
                         onSearchChange={updateSearch}
+                        minCharacters={2}
                         onResultSelect={(e, data) =>
                             selectVal(data.result)
                         }

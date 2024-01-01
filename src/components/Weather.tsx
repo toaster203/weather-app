@@ -67,6 +67,7 @@ export default function WeatherBox({ long, lat }) {
                     </div>*/}
 
                     <Search
+                        placeholder="Search for a city..."
                         onSearchChange={updateSearch}
                         onResultSelect={(e, data) =>
                             selectVal(data.result)

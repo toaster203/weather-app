@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import "./weather.css";
 
-import search_icon from './assets/search.png';
 import { Search } from 'semantic-ui-react';
 import debounce from "debounce";
 
